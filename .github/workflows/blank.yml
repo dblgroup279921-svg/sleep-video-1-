@@ -20,16 +20,19 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
+        working-directory: ./sleep-video-1
         run: npm install
 
       - name: Install Remotion Browser
+        working-directory: ./sleep-video-1
         run: npx remotion browser install
 
       - name: Render Video
+        working-directory: ./sleep-video-1
         run: npm run render
 
       - name: Upload Video Artifact
         uses: actions/upload-artifact@v4
         with:
           name: remotion-video
-          path: out/video.mp4
+          path: sleep-video-1/out/video.mp4
