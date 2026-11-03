@@ -3,8 +3,8 @@ name: Render Remotion Video
 on:
   push:
     branches:
-      - main # আপনার মেইন ব্রাঞ্চের নাম অনুযায়ী পরিবর্তন করতে পারেন
-  workflow_dispatch: # এর মাধ্যমে গিটহাব ওয়েবসাইট থেকে ম্যানুয়ালিও রান করা যাবে
+      - main
+  workflow_dispatch:
 
 jobs:
   render:
@@ -14,20 +14,23 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # যদি আপনার কোড মূল রুট ডিরেক্টরিতে না থেকে কোনো সাব-ফোল্ডারে থাকে, তবে এই পাথটি দরকার হবে
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18 # আপনার package.json এর React 18 এর সাথে সামঞ্জস্যপূর্ণ
-          cache: 'npm'
+          node-version: 18
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install # npm ci এর বদলে npm install ব্যবহার করা হয়েছে
+
+      - name: Install Remotion Browser
+        run: npx remotion browser install
 
       - name: Render Video
-        run: npm run render # আপনার package.json এর render স্ক্রিপ্টটি রান করবে
+        run: npm run render
 
       - name: Upload Video Artifact
         uses: actions/upload-artifact@v4
         with:
           name: remotion-video
-          path: out/video.mp4 # package.json অনুযায়ী যেখানে ভিডিও সেভ হচ্ছে
+          path: out/video.mp4
