@@ -14,14 +14,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # যদি আপনার কোড মূল রুট ডিরেক্টরিতে না থেকে কোনো সাব-ফোল্ডারে থাকে, তবে এই পাথটি দরকার হবে
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
       - name: Install Dependencies
-        run: npm install # npm ci এর বদলে npm install ব্যবহার করা হয়েছে
+        run: npm install
 
       - name: Install Remotion Browser
         run: npx remotion browser install
